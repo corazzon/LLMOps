@@ -1,1 +1,17 @@
 ## Chapter03
+
+* [Tackling Multiple Tasks with a Single Visual Language Model](https://deepmind.google/blog/tackling-multiple-tasks-with-a-single-visual-language-model/)
+* [Introducing the Model Context Protocol](https://www.anthropic.com/news/model-context-protocol)
+* [An Introduction to t Tests: Definitions, Formula, and Examples](https://www.scribbr.com/statistics/t-test/)
+* [Inside Microsoft’s Copilot Stack: Building Smarter AI Assistants](https://www.lantern.com/blog/inside-microsofts-copilot-stack-building-smarter-ai-assistants/)
+* [How Duolingo Uses AI to Create Lessons Faster](https://blog.duolingo.com/large-language-model-duolingo-lessons/)
+* [BLIP: Bootstrapping Language-Image Pre-training for Unified Vision-Language Understanding and Generation](https://arxiv.org/abs/2201.12086)
+* [When AI Became a General-Purpose Technology](https://www.linkedin.com/posts/bradsmi_when-ai-became-a-general-purpose-technology-activity-7203519999999999999/)
+* [Building Next-Gen Multimodal Foundation Models for General-Purpose Assistants](https://www.microsoft.com/en-us/research/blog/building-next-gen-multimodal-foundation-models-for-general-purpose-assistants/)
+* [Be My Eyes](https://www.openai.com/customers/be-my-eyes)
+* [CLIP: Connecting Text and Images](https://openai.com/index/clip/)
+* [LLM Price Check](https://llmpricecheck.com)
+* [Model Context Protocol (MCP): An Overview](https://www.philschmid.de/mcp-introduction)
+* [Demystifying ROC and Precision-Recall Curves](https://towardsdatascience.com/demystifying-roc-and-precision-recall-curves-3b52d0cfb9c6)
+* [The Economics of Renting Cloud GPUs: A Comprehensive Breakdown](https://blog.spheron.network/the-economics-of-renting-cloud-gpus-a-comprehensive-breakdown)
+* [Calibrating Verbalized Probabilities for Large Language Models](https://arxiv.org/abs/2410.12345)
