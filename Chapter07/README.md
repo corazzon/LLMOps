@@ -1,1 +1,16 @@
 ## Chapter07
+
+* [CoreWeave. n.d. *Weights & Biases*. Accessed May 21, 2025.](https://www.coreweave.com/blog/coreweave-and-weights-biases-to-join-forces)
+* [Es, Shahul, Jithin James, Luis Espinosa-Anke, and Steven Schockaert. 2025. “Ragas: Automated Evaluation of Retrieval Augmented Generation”. arXiv.](https://arxiv.org/abs/2309.15217)
+* [Fu, Jinlan, See-Kiong Ng, Zhengbao Jiang, and Pengfei Liu. 2023. “GPTScore: Evaluate as You Desire”. arXiv.](https://arxiv.org/abs/2302.04166)
+* [Hendrycks, Dan, Collin Burns, Steven Basart, et al. 2021. “Measuring Massive Multitask Language Understanding”. arXiv.](https://arxiv.org/abs/2009.03300)
+* [Honovich, Or, Roee Aharoni, Jonathan Herzig, et al. 2022. “TRUE: Re-Evaluating Factual Consistency Evaluation”. arXiv.](https://arxiv.org/abs/2204.04991)
+* [LangSmith. n.d. “Get Started with LangSmith”. Accessed May 21, 2025.](https://docs.langchain.com/langsmith/observability-quickstart)
+* [Lin, Stephanie, Jacob Hilton, and Owain Evans. 2022. “TruthfulQA: Measuring How Models Mimic Human Falsehoods”. arXiv.](https://arxiv.org/abs/2109.07958)
+* [Liu, Yang, Dan Iter, Yichong Xu, Shuohang Wang, Ruochen Xu, and Chenguang Zhu. 2023. “G-Eval: NLG Evaluation Using GPT-4 with Better Human Alignment”. arXiv.](https://arxiv.org/abs/2303.16634)
+* [Machan, J. J. n.d. *Ragas* (PyPI). Accessed May 21, 2025.](https://pypi.org/project/ragas/)
+* [Manakul, Potsawee, Adian Liusie, and Mark J. F. Gales. 2023. “SelfCheckGPT: Zero-Resource Black-Box Hallucination Detection for Generative Large Language Models”. arXiv.](https://arxiv.org/abs/2303.08896)
+* [Wang, Alex, Yada Pruksachatkun, Nikita Nangia, et al. 2020. “SuperGLUE: A Stickier Benchmark for General-Purpose Language Understanding Systems”. arXiv.](https://arxiv.org/abs/1905.00537)
+* [Wang, Alex, Amanpreet Singh, Julian Michael, Felix Hill, Omer Levy, and Samuel R. Bowman. 2019. “GLUE: A Multi-Task Benchmark and Analysis Platform for Natural Language Understanding”. arXiv.](https://arxiv.org/abs/1804.07461)
+* [Zellers, Rowan, Ari Holtzman, Yonatan Bisk, Ali Farhadi, and Yejin Choi. 2019. “HellaSwag: Can a Machine Really Finish Your Sentence?”. arXiv.](https://arxiv.org/abs/1905.07830)
+* [Zhong, Ming, Yang Liu, Da Yin, et al. 2022. “Towards a Unified Multi-Dimensional Evaluator for Text Generation”. arXiv.](https://arxiv.org/abs/2210.07197)
