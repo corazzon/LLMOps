@@ -1,5 +1,6 @@
 ## Chapter01
 
+### 참고문헌
 * Dao, Tri, and Albert Gu. 2024.  
   “[Transformers Are SSMs: Generalized Models and Efficient Algorithms Through Structured State Space Duality](https://arxiv.org/abs/2405.21060)”.  
   arXiv, May 31.
