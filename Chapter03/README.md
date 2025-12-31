@@ -1,5 +1,6 @@
 ## Chapter03
 
+### 참고문헌
 * [Tackling Multiple Tasks with a Single Visual Language Model](https://deepmind.google/blog/tackling-multiple-tasks-with-a-single-visual-language-model/)
 * [Introducing the Model Context Protocol](https://www.anthropic.com/news/model-context-protocol)
 * [An Introduction to t Tests: Definitions, Formula, and Examples](https://www.scribbr.com/statistics/t-test/)
