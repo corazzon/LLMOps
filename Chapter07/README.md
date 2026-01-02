@@ -1,5 +1,6 @@
 ## Chapter07
 
+### 참고문헌
 * [CoreWeave. n.d. *Weights & Biases*. Accessed May 21, 2025.](https://www.coreweave.com/blog/coreweave-and-weights-biases-to-join-forces)
 * [Es, Shahul, Jithin James, Luis Espinosa-Anke, and Steven Schockaert. 2025. “Ragas: Automated Evaluation of Retrieval Augmented Generation”. arXiv.](https://arxiv.org/abs/2309.15217)
 * [Fu, Jinlan, See-Kiong Ng, Zhengbao Jiang, and Pengfei Liu. 2023. “GPTScore: Evaluate as You Desire”. arXiv.](https://arxiv.org/abs/2302.04166)
