@@ -1,3 +1,4 @@
+# 예제 5-11
 import matplotlib.pyplot as plt
 import numpy as np
 
