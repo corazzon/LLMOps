@@ -42,94 +42,87 @@ PROMPT_B = (
 # Enron 스팸 데이터셋 로드 (CSV 파일 읽기)
 df = pd.read_csv("./Chapter03/enron_spam_data.csv")
 
-# 데이터셋에서 무작위로 샘플링하여 테스트 데이터셋 구성
-# 스팸 이메일 30개, 정상 이메일 30개 샘플링 (균형 잡힌 데이터셋)
-spam_df = df[df['Spam/Ham'] == 'spam'].sample(n=30)
-ham_df = df[df['Spam/Ham'] == 'ham'].sample(n=30)
-
-# 샘플링된 데이터 결합 (총 60개)
-sampled_df = pd.concat([spam_df, ham_df])
-
 # ====================================================================
 # 평가 함수
 # ====================================================================
 
+def inject_noise(text, label):
+    """
+    이메일 텍스트에 노이즈를 주입하여 분류 난이도를 높임
+    """
+    spam_footers = [
+        "\n\n[광고] 지금 바로 클릭하고 1등 당첨번호 확인하세요! 무료 증정 이벤트 중.",
+        "\n\n(주)대출나라 - 누구나 즉시 대출 가능, 최저 금리 보장. 긴급 자금 지원.",
+        "\n\n본 메일은 정보통신망법 규정에 의거하여 전송되는 홍보성 메일입니다."
+    ]
+    ham_signatures = [
+        "\n\nBest regards,\nJohn Doe\nSenior Marketing Manager | Enron Corp",
+        "\n\n이 메일은 보안 검색을 통과했습니다. 첨부파일 확인 시 주의하시기 바랍니다.",
+        "\n\n-----------------\nSent from my iPhone"
+    ]
+    
+    # 정상 메일(Ham)에 스팸성 바닥글을 주입하여 오탐(FP) 유도 (50% 확률)
+    if label == 'ham' and random.random() > 0.5:
+        text += random.choice(spam_footers)
+    # 스팸 메일(Spam)에 정상적인 서명을 추가하여 미탐(FN) 유도 (50% 확률)
+    elif label == 'spam' and random.random() > 0.5:
+        text += random.choice(ham_signatures)
+        
+    return text
+
 def evaluate_prompt(prompt_template):
     """
     주어진 프롬프트 템플릿으로 스팸 분류 성능을 평가
-    
-    Args:
-        prompt_template (str): 평가할 프롬프트 템플릿
-        
-    Returns:
-        tuple: (정밀도, 재현율)
     """
+    # 매 평가마다 새로 샘플링하여 변동성 확보 (난이도 상향 핵심)
+    spam_samples = df[df['Spam/Ham'] == 'spam'].sample(n=30)
+    ham_samples = df[df['Spam/Ham'] == 'ham'].sample(n=30)
+    current_sampled_df = pd.concat([spam_samples, ham_samples])
+
     # 혼동 행렬(Confusion Matrix) 초기화
     true_positive = 0   # TP: 스팸을 스팸으로 정확히 분류
     false_positive = 0  # FP: 정상을 스팸으로 잘못 분류 (오탐)
     true_negative = 0   # TN: 정상을 정상으로 정확히 분류
     false_negative = 0  # FN: 스팸을 정상으로 잘못 분류 (미탐)
 
-    # 각 이메일에 대해 평가 수행 (데이터프레임 순회)
-    for _, row in sampled_df.iterrows():
+    # 각 이메일에 대해 평가 수행
+    for _, row in current_sampled_df.iterrows():
         subject = row['Subject']
-        message = row['Message']
+        message = inject_noise(str(row['Message']), row['Spam/Ham']) # 노이즈 주입
         actual_label = row['Spam/Ham']
         
         # 프롬프트 생성
         prompt = prompt_template.format(subject=subject, message=message)
         
-        # OpenAI API 호출 및 예측 (GPT-4o-mini 모델 사용)
+        # OpenAI API 호출 및 예측
         try:
             response = client.chat.completions.create(
-                messages=[
-                    {
-                        "role": "user",
-                        "content": prompt,
-                    }
-                ],
+                messages=[{"role": "user", "content": prompt}],
                 model="gpt-4o-mini",
+                temperature=0.7 # 변동성을 위해 약간의 온도를 줌
             )
-            # 응답에서 예측된 레이블 추출 (공백 제거 및 소문자 변환)
             predicted_label = response.choices[0].message.content.strip().lower()
-        
         except Exception as e:
             print(f"OpenAI API 호출 오류: {e}")
             continue
 
-        # 혼동 행렬 업데이트 (예측 결과와 실제 레이블 비교)
-        if predicted_label == 'spam' and actual_label == 'spam':
+        # 혼동 행렬 업데이트
+        if 'spam' in predicted_label and actual_label == 'spam':
             true_positive += 1
-        elif predicted_label == 'spam' and actual_label == 'ham':
+        elif 'spam' in predicted_label and actual_label == 'ham':
             false_positive += 1
-        elif predicted_label == 'ham' and actual_label == 'ham':
+        elif 'ham' in predicted_label and actual_label == 'ham':
             true_negative += 1
-        elif predicted_label == 'ham' and actual_label == 'spam':
+        elif 'ham' in predicted_label and actual_label == 'spam':
             false_negative += 1
 
-    # 정밀도(Precision) 계산: 스팸으로 예측한 것 중 실제 스팸의 비율
-    # 정밀도가 높을수록 오탐(FP)이 적음 (0으로 나누기 방지)
-    precision = (
-        true_positive / (true_positive + false_positive) 
-        if (true_positive + false_positive) > 0 
-        else 0
-    )
-    
-    # 재현율(Recall) 계산: 실제 스팸 중 스팸으로 예측한 비율
-    # 재현율이 높을수록 미탐(FN)이 적음 (0으로 나누기 방지)
-    recall = (
-        true_positive / (true_positive + false_negative) 
-        if (true_positive + false_negative) > 0 
-        else 0
-    )
+    # 정밀도 및 재현율 계산
+    precision = true_positive / (true_positive + false_positive) if (true_positive + false_positive) > 0 else 0
+    recall = true_positive / (true_positive + false_negative) if (true_positive + false_negative) > 0 else 0
 
     return precision, recall
 
-# ====================================================================
-# 실험 실행 함수
-# ====================================================================
-
-def run_experiments(prompt_template, n_experiments=10):
+def run_experiments(prompt_template, n_experiments=5): # 시간 관계상 기본 5회로 조정
     """
     동일한 프롬프트로 여러 번 실험을 수행하여 평균 성능 측정
     LLM의 응답은 확률적이므로, 한 번의 실험만으로는 신뢰할 수 없음
