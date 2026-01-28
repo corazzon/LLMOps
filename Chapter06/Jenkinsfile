@@ -1,0 +1,21 @@
+pipeline {
+    agent any
+    stages {
+        stage('Build Image') {
+            steps {
+                sh 'docker build -t my-llm-model .'
+            }
+        }
+        stage('Push Image') {
+            steps {
+                sh 'docker tag my-llm-model myregistry/my-llm-model:latest'
+                sh 'docker push myregistry/my-llm-model:latest'
+            }
+        }
+        stage('Deploy to Kubernetes') {
+            steps {
+                sh 'kubectl apply -f deployment.yaml'
+            }
+        }
+    }
+}
